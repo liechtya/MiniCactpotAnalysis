@@ -33,6 +33,45 @@ namespace MiniCactpotAnalysis {
             boardPlayer.Proceed(implementedRevealStrategy.UseStrategy(boardPlayer.GetStartingPos(), rand), rand);
         }
 
+        private List<int> calculatePossibleSums(List<List<int>> possibleValues)
+        {
+            int sum = 0;
+            List<int> possibleFinalSums = new List<int>();
+            var numsTaken = new List<int>;
+
+            foreach (int firstPosPossibleValue in possibleValues[0])
+            {
+                numsTaken.Add(firstPosPossibleValue);
+                foreach (int secondPosPossibleValue in possibleValues[1])
+                {
+                    if (numsTaken.Contains(secondPosPossibleValue))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        numsTaken.Add(secondPosPossibleValue);
+                    }
+                    foreach (int thirdPosPossibleValue in possibleValues[2])
+                    {
+                        if (numsTaken.Contains(thirdPosPossibleValue))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            sum = firstPosPossibleValue + secondPosPossibleValue + thirdPosPossibleValue;
+                            possibleFinalSums.Add(sum);
+                        }
+                        
+                    }
+                    numsTaken.Remove(secondPosPossibleValue);
+                }
+                numsTaken.Remove(firstPosPossibleValue);
+            }
+            return possibleFinalSums;
+        }
+
         public void SelectLineAndPayout(Dictionary<int, int> payTable)
         {
             List<int[]> Lines = new List<int[]>()
@@ -68,19 +107,7 @@ namespace MiniCactpotAnalysis {
                     }
                 }
 
-                int sum = 0;
-                List<int> possibleFinalSums = new List<int>();
-                foreach (int firstPosPossibleValue in possibleValues[0])
-                {
-                    foreach (int secondPosPossibleValue in possibleValues[1])
-                    {
-                        foreach (int thirdPosPossibleValue in possibleValues[2])
-                        {
-                            sum = firstPosPossibleValue + secondPosPossibleValue + thirdPosPossibleValue;
-                            possibleFinalSums.Add(sum);
-                        }
-                    }
-                }
+                List<int> possibleFinalSums = calculatePossibleSums(possibleValues);
 
                 List<int> possiblePayouts = new List<int>();
                 foreach (var item in possibleFinalSums)
