@@ -3,7 +3,6 @@ namespace MiniCactpotAnalysis {
     public abstract class PlayingAgent
     {
         protected BoardPlayer boardPlayer;
-        protected RevealStrategy implementedRevealStrategy;
         protected List<RevealStrategy> possibleRevealStrategies;
         protected Random rand;
         protected string name;
@@ -14,7 +13,7 @@ namespace MiniCactpotAnalysis {
             this.boardPlayer = new BoardPlayer(rand);
         }
 
-        public void SelectAStrategy()
+        public RevealStrategy SelectAStrategy()
         {
             List<RevealStrategy> avalStrategies = new List<RevealStrategy>();
             foreach (var possibleRevealStrategy in possibleRevealStrategies)
@@ -25,19 +24,19 @@ namespace MiniCactpotAnalysis {
                 }
             }
             int strategyToSelect = rand.Next(avalStrategies.Count);
-            implementedRevealStrategy = avalStrategies[strategyToSelect];
+            return avalStrategies[strategyToSelect];
         }
 
         public void RevealNumbers()
         {
-            boardPlayer.Proceed(implementedRevealStrategy.UseStrategy(boardPlayer.GetStartingPos(), rand), rand);
+            boardPlayer.Proceed(SelectAStrategy().UseStrategy(boardPlayer.GetStartingPos(), rand), rand);
         }
 
         private List<int> calculatePossibleSums(List<List<int>> possibleValues)
         {
             int sum = 0;
             List<int> possibleFinalSums = new List<int>();
-            var numsTaken = new List<int>;
+            var numsTaken = new List<int>();
 
             foreach (int firstPosPossibleValue in possibleValues[0])
             {
