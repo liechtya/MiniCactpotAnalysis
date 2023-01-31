@@ -107,14 +107,14 @@ namespace MiniCactpotAnalysis
             }
         }
 
-        public void CompleteTheBoard(Random Rand)
+        public void CompleteTheBoard(Random rand)
         {
             int value = 0;
             for (int squarePos = 0; squarePos < 9; squarePos++)
             {
                 if (cactpotBoard.GetSquare(squarePos) == 0)
                 {
-                    value = numsAval[Rand.Next(0, numsAval.Count)];
+                    value = numsAval[rand.Next(0, numsAval.Count)];
                     cactpotBoard.SetSquare(squarePos, value);
                     numsAval.Remove(value);
                 }

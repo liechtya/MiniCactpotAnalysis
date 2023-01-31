@@ -32,7 +32,7 @@ namespace MiniCactpotAnalysis {
             boardPlayer.Proceed(SelectAStrategy().UseStrategy(boardPlayer.GetStartingPos(), rand), rand);
         }
 
-        private List<int> calculatePossibleSums(List<List<int>> possibleValues)
+        private List<int> CalculatePossibleSums(List<List<int>> possibleValues)
         {
             int sum = 0;
             List<int> possibleFinalSums = new List<int>();
@@ -73,7 +73,7 @@ namespace MiniCactpotAnalysis {
 
         public void SelectLineAndPayout(Dictionary<int, int> payTable)
         {
-            List<int[]> Lines = new List<int[]>()
+            List<int[]> lines = new List<int[]>()
             {
                 new [] { 0, 1, 2 },
                 new [] { 3, 4, 5 },
@@ -90,7 +90,7 @@ namespace MiniCactpotAnalysis {
             double highestProjectedPayout = 0;
             List<List<int>> possibleValues = new List<List<int>>();
             int[] selectedLine = new int[3];
-            foreach (var line in Lines)
+            foreach (var line in lines)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -106,7 +106,7 @@ namespace MiniCactpotAnalysis {
                     }
                 }
 
-                List<int> possibleFinalSums = calculatePossibleSums(possibleValues);
+                List<int> possibleFinalSums = CalculatePossibleSums(possibleValues);
 
                 List<int> possiblePayouts = new List<int>();
                 foreach (var item in possibleFinalSums)

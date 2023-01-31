@@ -4,49 +4,49 @@ namespace MiniCactpotAnalysis
     public class Board
     {
         
-        private Square[] TheBoard;
-        private bool OpenBoard;
+        private Square[] theBoard;
+        private bool openBoard;
 
         public Board()
         {
-            TheBoard = new Square[9];
-            for(int i = 0; i < TheBoard.Length; i++)
+            theBoard = new Square[9];
+            for(int i = 0; i < theBoard.Length; i++)
             {
-                TheBoard[i] = new Square();
+                theBoard[i] = new Square();
             }
-            OpenBoard = true;
+            openBoard = true;
         }
 
         public Board(int position, int revealedNum)
         {
-            TheBoard = new Square[9];
-            for(int i = 0; i < TheBoard.Length; i++)
+            theBoard = new Square[9];
+            for(int i = 0; i < theBoard.Length; i++)
             {
                 if(i == position)
                 {
-                    TheBoard[i] = new Square(revealedNum);
+                    theBoard[i] = new Square(revealedNum);
                 } else
                 {
-                    TheBoard[i] = new Square();
+                    theBoard[i] = new Square();
                 }
             }
-            OpenBoard = true;
+            openBoard = true;
         }
 
-        public int GetSquare(int SquarePosition)
+        public int GetSquare(int squarePosition)
         {
-            return TheBoard[SquarePosition].GetValue();
+            return theBoard[squarePosition].GetValue();
         }
 
-        public void SetSquare(int SquarePosition, int SettingNum)
+        public void SetSquare(int squarePosition, int settingNum)
         {
-            if (SquarePosition >= 0 && SquarePosition < TheBoard.Length)
+            if (squarePosition >= 0 && squarePosition < theBoard.Length)
             {
-                if (SettingNum >= 0 && SettingNum <= 9)
+                if (settingNum >= 0 && settingNum <= 9)
                 {
-                    TheBoard[SquarePosition].SetValue(SettingNum);
-                    if(SettingNum != 0){
-                        OpenBoard = false;
+                    theBoard[squarePosition].SetValue(settingNum);
+                    if(settingNum != 0){
+                        openBoard = false;
                     }
                 }
             }
@@ -54,42 +54,42 @@ namespace MiniCactpotAnalysis
 
         public int[] GetAllSquareValues()
         {
-            int[] values = new int[TheBoard.Length];
+            int[] values = new int[theBoard.Length];
             for (int i = 0; i < values.Length; i++)
             {
-                values[i] = TheBoard[i].GetValue();
+                values[i] = theBoard[i].GetValue();
             }
             return values;
         }
 
         public bool GetOpenBoard(){
-            return this.OpenBoard;
+            return this.openBoard;
         }
         
-        public int GetLineSum(int[] SelectedLine)
+        public int GetLineSum(int[] selectedLine)
         {
             int sum = 0;
-            foreach (int item in SelectedLine)
+            foreach (int item in selectedLine)
             {
-                sum += TheBoard[item].GetValue();
+                sum += theBoard[item].GetValue();
             }
             return sum;
         }
 
         public void Reset()
         {
-            foreach (Square item in TheBoard)
+            foreach (Square item in theBoard)
             {
                 item.SetValue(0);
             }
-            OpenBoard = true;
+            openBoard = true;
         }
 
         public void ToString()
         {
-            Console.WriteLine("{0} {1} {2}", TheBoard[0].GetValue(), TheBoard[1].GetValue(), TheBoard[2].GetValue());
-            Console.WriteLine("{0} {1} {2}", TheBoard[3].GetValue(), TheBoard[4].GetValue(), TheBoard[5].GetValue());
-            Console.WriteLine("{0} {1} {2}", TheBoard[6].GetValue(), TheBoard[7].GetValue(), TheBoard[8].GetValue());
+            Console.WriteLine("{0} {1} {2}", theBoard[0].GetValue(), theBoard[1].GetValue(), theBoard[2].GetValue());
+            Console.WriteLine("{0} {1} {2}", theBoard[3].GetValue(), theBoard[4].GetValue(), theBoard[5].GetValue());
+            Console.WriteLine("{0} {1} {2}", theBoard[6].GetValue(), theBoard[7].GetValue(), theBoard[8].GetValue());
         }
 
     }
